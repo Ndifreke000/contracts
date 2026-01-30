@@ -101,6 +101,11 @@ impl MedicalRegistry {
             .expect("Patient not found")
     }
 
+    pub fn is_patient_registered(env: Env, wallet: Address) -> bool {
+        let key = DataKey::Patient(wallet);
+        env.storage().persistent().has(&key)
+    }
+
     // =====================================================
     //                    DOCTOR LOGIC
     // =====================================================

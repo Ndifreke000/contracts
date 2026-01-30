@@ -50,6 +50,31 @@ fn test_update_patient() {
     assert_eq!(patient_data.metadata, new_metadata);
 }
 
+#[test]
+fn test_is_patient_registered() {
+    let env = Env::default();
+    let contract_id = env.register(MedicalRegistry, ());
+    let client = MedicalRegistryClient::new(&env, &contract_id);
+
+    let patient_wallet = Address::generate(&env);
+    let unregistered_wallet = Address::generate(&env);
+
+    env.mock_all_auths();
+
+    assert_eq!(client.is_patient_registered(&patient_wallet), false);
+    assert_eq!(client.is_patient_registered(&unregistered_wallet), false);
+
+    client.register_patient(
+        &patient_wallet,
+        &String::from_str(&env, "Jane Doe"),
+        &631152000,
+        &String::from_str(&env, "ipfs://data"),
+    );
+
+    assert_eq!(client.is_patient_registered(&patient_wallet), true);
+    assert_eq!(client.is_patient_registered(&unregistered_wallet), false);
+}
+
 /// ------------------------------------------------
 /// DOCTOR + INSTITUTION TESTS
 /// ------------------------------------------------
