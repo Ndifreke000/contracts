@@ -1,7 +1,7 @@
 #![no_std]
 
-mod types;
 mod contract;
+mod types;
 
 #[cfg(test)]
 mod test;

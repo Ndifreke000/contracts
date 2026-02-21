@@ -1,4 +1,13 @@
-use soroban_sdk::{contracttype, Address, String, Symbol};
+use soroban_sdk::{contracterror, contracttype, Address, String, Symbol};
+
+#[contracterror]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, PartialOrd, Ord)]
+#[repr(u32)]
+pub enum Error {
+    Unauthorized = 1,
+    NotFound = 2,
+    InvalidParameter = 3,
+}
 
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -41,10 +50,10 @@ pub struct VitalStatistics {
 #[contracttype]
 #[derive(Clone)]
 pub enum DataKey {
-    VitalsHistory(Address), // map to Vec<VitalReading>
+    VitalsHistory(Address),            // map to Vec<VitalReading>
     MonitoringParams(Address, Symbol), // map to MonitoringParameters
-    DeviceReg(Address, String), // map to DeviceRegistration
-    VitalsAlerts(Address, Symbol), // map to Vec<VitalAlert>
+    DeviceReg(Address, String),        // map to DeviceRegistration
+    VitalsAlerts(Address, Symbol),     // map to Vec<VitalAlert>
 }
 
 #[contracttype]
