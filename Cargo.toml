@@ -15,6 +15,8 @@ members = [
   "contracts/referral",
   "contracts/lab-management",
   "contracts/allergy-management",
+  "contracts/emergency-medical-info",
+  "contracts/imaging-radiology",
 ]
 
 [workspace.dependencies]
